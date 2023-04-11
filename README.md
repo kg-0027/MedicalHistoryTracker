@@ -18,3 +18,4 @@ To use the project, follow the steps below:
 
 1. Run the command `python app.py` to start the server.
 2. Open the link `http://
+3. Use the portal.

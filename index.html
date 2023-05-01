@@ -166,7 +166,7 @@
             <p class="hero-subtitle has-before" data-reveal="left">Welcome To BMU Medical Portal</p>
 
             <h1 class="headline-lg hero-title" data-reveal="left">
-              Your Health is <br>
+              Your Health<br>
               Our Priority.
             </h1>
 
@@ -179,12 +179,12 @@
               <div class="wrapper">
 
                 <div class="input-wrapper title-lg">
-                  <input type="text" name="enroll" class="input-field">
+                  <input type="text" name="enroll" id="Enrollment" class="input-field">
                 </div>
 
                 
-                <button style="background-color: rgb(145, 148, 155); color: white; border-radius: 5px; height: 30px; width: 100px;"
-  <span class="span title-md">Submit</span>
+                <button id="searchEnrollment" style="background-color: rgb(145, 148, 155); color: white; border-radius: 5px; height: 30px; width: 100px;"
+                <span class="span title-md">Submit</span>
 </button>
 
 
@@ -615,6 +615,36 @@ In addition to medical history management, the portal also offers inventory mana
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <!-- write a code to take the element Enrollment from id and call this api "http://127.0.0.1:5000/students/medrec/id/Enrollment". Append the value taken from Enrollment element here and call the api on submit -->
+  <script>
+    function fetchData() {
+      // get the value of the input field with id="Enrollment"
+      var Enrollment = document.getElementById("Enrollment").value;
+      var api = "http://127.0.0.1:5000/student/"
+      // convert the value to string
+      var api = api.concat(Enrollment);
+      console.log(api);
+      fetch(api)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data[0]);
+          // store the data in local storage with key="student"
+          // clear the local storage
+          localStorage.clear();
+          localStorage.setItem("student", JSON.stringify(data[0]));
+  
+          // redirect to the page student.html
+          window.location.href = "history.html";
+
+        })
+        .catch(error => console.error(error))
+
+
+    }
+    // add event listener to the button with id="searchEnrollment" and call the function fetchData
+    document.getElementById("searchEnrollment").addEventListener("click", fetchData);
+
+  </script>
 
 </body>
 

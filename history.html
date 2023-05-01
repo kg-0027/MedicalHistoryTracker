@@ -234,51 +234,54 @@ input[type="text"] {
           <h2>Student Information</h2>
           <div class="info-item">
             <span class="label">Name:</span>
-            <span class="value">John Doe</span>
+            <span class="value" id="name">John Doe</span>
           </div>
           <div class="info-item">
             <span class="label">Enrollment Number:</span>
-            <span class="value">12345</span>
+            <span class="value" id="enrollment">12345</span>
           </div>
           <div class="info-item">
             <span class="label">Hostel:</span>
-            <span class="value">ABC</span>
+            <span class="value" id="hostel">ABC</span>
           </div>
           <div class="info-item">
             <span class="label">Phone Number:</span>
-            <span class="value">555-1234</span>
+            <span class="value" id="phone">555-1234</span>
           </div>
           <div class="info-item">
             <span class="label">Batch:</span>
-            <span class="value">2022</span>
+            <span class="value" id="batch">2022</span>
           </div>
           <div class="info-item">
             <span class="label">Course:</span>
-            <span class="value">Computer Science</span>
+            <span class="value" id="course">Computer Science</span>
           </div>
         </div>
         <div class="health-details">
-          <h2>Health Details</h2>
+          <h2>Enter Health Details</h2>
           <div class="health-item">
             <span class="label">Symptoms:</span>
-            <input type="text" id="symptoms" name="symptoms" value="Fever, cough, headache">
+            <input type="text" id="symptoms" name="symptoms" value="">
           </div>
           <div class="health-item">
             <span class="label">Disease:</span>
-            <input type="text" id="disease" name="disease" value="Influenza">
+            <input type="text" id="disease" name="disease" value="">
           </div>
           <div class="health-item">
             <span class="label">Treatment:</span>
-            <input type="text" id="treatment" name="treatment" value="Rest, plenty of fluids">
+            <input type="text" id="treatment" name="treatment" value="">
           </div>
           <div class="health-item">
             <span class="label">Referred:</span>
-            <input type="text" id="referred" name="referred" value="No">
+            <input type="text" id="referred" name="referred" placeholder="yes/no">
           </div>
           <div class="health-item">
             <span class="label">Critical:</span>
-            <input type="text" id="critical" name="critical" value="No">
+            <input type="text" id="critical" name="critical" placeholder="Low/Medium/High">
           </div>
+          <!-- create a button to submit data on the right side-->
+          <button type="submit" name="submit" id="submitMedicalData" class="btn btn-primary">Submit</button>
+
         </div>
       </div>
     
@@ -320,39 +323,8 @@ input[type="text"] {
               <th>Referred</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>2023-04-01</td>
-              <td>Paracetamol</td>
-              <td>Fever, Headache</td>
-              <td>Flu</td>
-              <td>No</td>
-              <td>No</td>
-            </tr>
-            <tr>
-              <td>2023-04-08</td>
-              <td>Amoxicillin</td>
-              <td>Sore throat, Cough</td>
-              <td>Strep Throat</td>
-              <td>No</td>
-              <td>No</td>
-            </tr>
-            <tr>
-              <td>2023-04-15</td>
-              <td>None</td>
-              <td>Abdominal pain, Diarrhea</td>
-              <td>Gastroenteritis</td>
-              <td>No</td>
-              <td>No</td>
-            </tr>
-            <tr>
-              <td>2023-04-22</td>
-              <td>Insulin</td>
-              <td>Blurred vision, Fatigue</td>
-              <td>Diabetes</td>
-              <td>Yes</td>
-              <td>Endocrinologist</td>
-            </tr>
+          <tbody id="tablebody">
+           
           </tbody>
         </table>
       </body>
@@ -585,6 +557,183 @@ input[type="text"] {
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script>
+    // get the student data from local storage
+    const studentData = JSON.parse(localStorage.getItem('student'));
+    console.log(studentData);
+
+    // create a function to update student data in the page
+    function updateData(){
+            // get elements from the page
+            const name = document.getElementById('name');
+            // const email = document.getElementById('email');
+            const phone = document.getElementById('phone');
+            const hostel = document.getElementById('hostel');
+            const enrollment = document.getElementById('enrollment');
+            const batch = document.getElementById('batch');
+            const course = document.getElementById('course');
+            // clear the previous data
+            name.innerHTML = '';
+            // email.innerHTML = '';
+            phone.innerHTML = '';
+            hostel.innerHTML = '';
+            enrollment.innerHTML = '';
+            batch.innerHTML = '';
+            course.innerHTML = '';
+            // update the data
+            name.innerHTML = studentData.name;
+            // email.innerHTML = studentData.email;
+            phone.innerHTML = studentData.mobile;
+            hostel.innerHTML = studentData.hostel;
+            enrollment.innerHTML = studentData.enrollment;
+            batch.innerHTML = studentData.batch;
+            course.innerHTML = studentData.course;
+
+
+    }
+    updateData();
+
+    // create a function to submit medical data using the post api "http://127.0.0.1:5000/postapi" and body format like {
+    // "enroll": 200197,
+    // "symptoms": "Fever, cold, headache",
+    // "disease": "Viral",
+    // "treatment": "Accolate",
+    // "referred": "y",
+    // "critical": "H"
+    // }
+
+    function submitData(){
+      submitMedicalData.innerHTML = 'Submitting...';
+      submitMedicalData.disabled = true;
+      // get the data from the form
+      const symptoms = document.getElementById('symptoms').value;
+      const disease = document.getElementById('disease').value;
+      const treatment = document.getElementById('treatment').value;
+      const referred = document.getElementById('referred').value;
+      const critical = document.getElementById('critical').value;
+      // create a body object
+      const body = {
+        enroll: studentData.enrollment,
+        symptoms: symptoms,
+        disease: disease,
+        treatment: treatment,
+        referred: referred[0],
+        critical: critical[0]
+      }
+      console.log(body);
+      // send the data to the api
+      fetch('http://127.0.0.1:5000/postapi', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        // show the success message
+        const success = document.getElementById('success');
+        success.style.display = 'block';
+        // hide the success message after 3 seconds
+        setTimeout(() => {
+          success.style.display = 'none';
+        }, 3000);
+      })
+      .catch(err => {
+        console.log(err);
+        // show the error message
+        const error = document.getElementById('error');
+        error.style.display = 'block';
+        // hide the error message after 3 seconds
+        setTimeout(() => {
+          error.style.display = 'none';
+        }, 3000);
+      })
+      // redirect to the index page
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 3000);
+    }
+    // add event listener to submitMedicalData button
+    const submitMedicalData = document.getElementById('submitMedicalData');
+    // change button name to submiting... and disable it
+    submitMedicalData.addEventListener('click', submitData);
+    
+
+
+  </script>
+
+  <script>
+    // get the data from this api "http://127.0.0.1:5000//students/medrec/id/" and append the enrollment from the local storage
+    // create a function to get the data from the api
+    function getMedicalData(){
+      const tableBody = document.getElementById('tablebody');
+      // clear the previous data
+      tableBody.innerHTML = '';
+      // get the enrollment from the local storage
+      var enrollment = JSON.parse(localStorage.getItem('student')).enrollment;
+      // send the request to the api
+      var api = "http://127.0.0.1:5000//students/medrec/id/"
+      // convert enrollment to string and append to the api
+      api = api + enrollment.toString();
+      console.log(api);
+      fetch(api)
+      .then(res => res.json())
+      .then(data => {
+        //iterate through the data and log it
+        data.forEach(element => {
+          // create a row in this format
+          //  <tr>
+          //     <td>2023-04-01</td>
+          //     <td>Paracetamol</td>
+          //     <td>Fever, Headache</td>
+          //     <td>Flu</td>
+          //     <td>No</td>
+          //     <td>No</td>
+          //   </tr>
+          // create a row
+          const row = document.createElement('tr');
+          // create a date cell
+          const date = document.createElement('td');
+          date.innerHTML = element.date;
+          // create a medicine cell
+          const medicine = document.createElement('td');
+          medicine.innerHTML = element.treatment;
+          // create a symptoms cell
+          const symptoms = document.createElement('td');
+          symptoms.innerHTML = element.symptoms;
+          // create a disease cell
+          const disease = document.createElement('td');
+          disease.innerHTML = element.disease;
+          // create a referred cell
+          const referred = document.createElement('td');
+          referred.innerHTML = element.referred;
+          // create a critical cell
+          const critical = document.createElement('td');
+          critical.innerHTML = element.critical;
+          // append all the cells to the row
+          row.appendChild(date);
+          row.appendChild(medicine);
+          row.appendChild(symptoms);
+          row.appendChild(disease);
+          row.appendChild(referred);
+          row.appendChild(critical);
+          // append the row to the table body
+          tableBody.appendChild(row);
+
+
+
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }
+    getMedicalData();
+
+
+  </script>
 
 </body>
 

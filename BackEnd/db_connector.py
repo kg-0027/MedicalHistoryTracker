@@ -174,6 +174,30 @@ class ItemDatabase:
             inventory_info.append(batches)
         return inventory_info
 
+    # function to get top 5 diseases from medical_students_record table
+    def top_diseases(self):
+        query = f"SELECT disease, COUNT(*) as count FROM medical_records.student_medical_history GROUP BY disease ORDER BY count DESC LIMIT 5;"
+        self.cursor.execute(query)
+        diseases = []
+        for row in self.cursor.fetchall():
+            disease = {}
+            disease['disease'] = row[0]
+            disease['count'] = row[1]
+            diseases.append(disease)
+        return diseases
+
+    # function to get top 5 students from medical_students_record table
+    def top_students(self):
+        query = f"SELECT students_records.name, COUNT(*) AS count FROM medical_records.student_medical_history JOIN medical_records.students_records ON medical_records.student_medical_history.enrollment_id = medical_records.students_records.enrollment_id GROUP BY medical_records.student_medical_history.enrollment_id ORDER BY count DESC LIMIT 5;"
+        self.cursor.execute(query)
+        students = []
+        for row in self.cursor.fetchall():
+            student = {}
+            student['name'] = row[0]
+            student['count'] = row[1]
+            students.append(student)
+        return students
+
 
 # db = ItemDatabase()
 # db.add_record(id=200197, body={'symptoms': 'Fever, cold, headache', 'disease': 'Viral',

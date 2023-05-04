@@ -114,6 +114,24 @@ def get_all_medicine_details():
     details = db.get_all_inventory()
     return jsonify(details)
 
+# API for getting top 5 diseases from medical_student_record table
+
+
+@app.route('/top/diseases')
+@cross_origin(origins='*')
+def top_diseases():
+    diseases = db.top_diseases()
+    return jsonify(diseases)
+
+# API for getting top 5 students from medical_student_record table
+
+
+@app.route('/top/students')
+@cross_origin(origins='*')
+def top_students():
+    students = db.top_students()
+    return jsonify(students)
+
 
 if __name__ == "__main__":
     global db

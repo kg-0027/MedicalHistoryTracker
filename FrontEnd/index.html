@@ -17,6 +17,7 @@
     - favicon
   -->
   <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/css/index.css">
 
   <!-- 
     - google font link
@@ -214,103 +215,7 @@
         - #SERVICE
       -->
 
-      <section class="service" aria-label="service">
-        <div class="container">
 
-          <ul class="service-list">
-
-            <li>
-              <div class="service-card" data-reveal="bottom">
-
-                <div class="card-icon">
-                  <img src="./assets/images/icon-1.png" width="71" height="71" loading="lazy" alt="icon">
-                </div>
-
-                <h3 class="headline-sm card-title">
-                  <a href="#">Psychiatry</a>
-                </h3>
-
-                <p class="card-text">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing
-                </p>
-
-                <button class="btn-circle" aria-label="read more about psychiatry">
-                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
-                </button>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="service-card" data-reveal="bottom">
-
-                <div class="card-icon">
-                  <img src="./assets/images/icon-2.png" width="71" height="71" loading="lazy" alt="icon">
-                </div>
-
-                <h3 class="headline-sm card-title">
-                  <a href="#">Gynecology</a>
-                </h3>
-
-                <p class="card-text">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing
-                </p>
-
-                <button class="btn-circle" aria-label="read more about Gynecology">
-                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
-                </button>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="service-card" data-reveal="bottom">
-
-                <div class="card-icon">
-                  <img src="./assets/images/icon-3.png" width="71" height="71" loading="lazy" alt="icon">
-                </div>
-
-                <h3 class="headline-sm card-title">
-                  <a href="#">Pulmonology</a>
-                </h3>
-
-                <p class="card-text">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing
-                </p>
-
-                <button class="btn-circle" aria-label="read more about Pulmonology">
-                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
-                </button>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="service-card" data-reveal="bottom">
-
-                <div class="card-icon">
-                  <img src="./assets/images/icon-4.png" width="71" height="71" loading="lazy" alt="icon">
-                </div>
-
-                <h3 class="headline-sm card-title">
-                  <a href="#">Orthopedics</a>
-                </h3>
-
-                <p class="card-text">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing
-                </p>
-
-                <button class="btn-circle" aria-label="read more about Orthopedics">
-                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
-                </button>
-
-              </div>
-            </li>
-
-          </ul>
-
-        </div>
-      </section>
 
 
 
@@ -319,67 +224,134 @@
       <!-- 
         - #ABOUT
       -->
-
-      <section class="section about" aria-labelledby="about-label">
-        <div class="container">
-
-          <div class="about-content">
-
-            <h2 class="headline-md" data-reveal="left">About Us</h2>
-
-            <p class="section-text" data-reveal="left">
-              One of the unique features of this portal is its ability to maintain a student's medical history, providing a centralized record of their medical conditions, treatments, and medications. This can be especially useful for medical students who are required to undergo regular health checkups and vaccinations.
-
-In addition to medical history management, the portal also offers inventory management for healthcare facilities. This feature allows healthcare professionals to keep track of medical supplies and equipment, ensuring that they are always adequately stocked and readily available when needed. 
-            </p>
-
-            
-
-            <p class="tab-text" data-reveal="left">
-              Max Hospital is a world-renowned healthcare provider with a legacy of over three decades. With a network of over 14 hospitals in India and a team of highly skilled healthcare professionals, Max Hospital is dedicated to providing the best possible care to its patients. Max Hospital's partnership with BML Munjal University underscores its commitment to advancing medical education and research, and to empowering the next generation of healthcare professionals.
-            </p>
-
-            <div class="wrapper">
-
-              <ul class="about-list">
-
-                <li class="about-item" data-reveal="left">
-                  <ion-icon name="checkmark-circle-outline"></ion-icon>
-
-                  <span class="span">Medical Health History</span>
-                </li>
-
-                <li class="about-item" data-reveal="left">
-                  <ion-icon name="checkmark-circle-outline"></ion-icon>
-
-                  <span class="span">Inventory Management</span>
-                </li>
-
-                <li class="about-item" data-reveal="left">
-                  <ion-icon name="checkmark-circle-outline"></ion-icon>
-
-                  <span class="span">Referrals to specialists</span>
-                </li>
-
-                <li class="about-item" data-reveal="left">
-                  <ion-icon name="checkmark-circle-outline"></ion-icon>
-
-                  <span class="span">Complete Health Analysis</span>
-                </li>
-
-              </ul>
-
-            </div>
-
-          </div>
-
-          <figure class="about-banner" data-reveal="right">
-            <img src="./assets/images/about-banner.png" width="554" height="678" loading="lazy" alt="about banner"
-              class="w-100">
-          </figure>
-
+      <h1 class="heading-2">Medical History Record</h1>
+     
+       <div class="table-class">
+          <table id="emp-table">
+            <thead>
+              <tr>
+                <th col-index="1">
+                  Date
+                  <select class="table-filter"  onchange="filter_rows()">
+                    <option value="all"></option>
+                  </select>
+                </th>
+                <th>Enrollment Number</th>
+                <th>Name</th>
+                <th>Course</th>
+                <th col-index="5">
+                  Medicine Given
+                  <select class="table-filter"  onchange="filter_rows()">
+                    <option value="all"></option>
+                  </select>
+                </th>
+                
+                <th col-index="6">
+                  Disease
+                  <select class="table-filter" onchange="filter_rows()">
+                    <option value="all" ></option>
+                  </select>
+                </th>
+                
+                <th>Symptoms</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2023-04-01</td>
+                <td>200176</td>
+                <td>Bhavyam Arora</td>
+                <td>Btech</td>
+                <td>Paracetamol</td>
+                <td>Flu</td>
+                <td>Fever, Headache</td>
+              </tr>
+              <tr>
+                <td>2023-04-08</td>
+                <td>200177</td>
+                <td>Shubham Jha</td>
+                <td>MBA</td>
+                <td>Amoxicillin</td>
+                <td>Strep Throat</td>
+                <td>Sore throat, Cough</td>
+              </tr>
+              <tr>
+                <td>2023-04-15</td>
+                <td>200178</td>
+                <td>Khushi Gupta</td>
+                <td>Btech</td>
+                <td>None</td>
+                <td>Gastroenteritis</td>
+                <td>Abdominal pain, Diarrhea</td>
+              </tr>
+              <tr>
+                <td>2023-04-22</td>
+                <td>200179</td>
+                <td>Tanishq Nyati</td>
+                <td>B.Com</td>
+                <td>Insulin</td>
+                <td>Diabetes</td>
+                <td>Blurred vision, Fatigue</td>
+              </tr>
+              <tr>
+                <td>2023-04-22</td>
+                <td>200180</td>
+                <td>Ayushi Verma</td>
+                <td>BBA</td>
+                <td>Amoxyclav</td>
+                <td>Throat infection</td>
+                <td>Sore throat, Cough</td>
+              </tr>
+              <tr>
+                <td>2023-04-22</td>
+                <td>200181</td>
+                <td>Yash yadav</td>
+                <td>Btech</td>
+                <td>Dorano</td>
+                <td>Gastritis</td>
+                <td>Stomach pain, flatulence</td>
+              </tr>
+              <tr>
+                <td>2023-04-22</td>
+                <td>200182</td>
+                <td>Divij Goyal</td>
+                <td>PhD</td>
+                <td>None</td>
+                <td>Stroke</td>
+                <td>Heavy breathing, heart pain</td>
+              </tr>
+              <tr>
+                <td>2023-04-22</td>
+                <td>200183</td>
+                <td>Yashita</td>
+                <td>MBA</td>
+                <td>Amoxyclav</td>
+                <td>Throat infection</td>
+                <td>Sore throat, Cough</td>
+              </tr>
+              <tr>
+                <td>2023-04-22</td>
+                <td>200184</td>
+                <td>Vidhi Hatter</td>
+                <td>Btech</td>
+                <td>Amoxyclav</td>
+                <td>Sore throat, Cough</td>
+                <td>Throat infection</td>
+              </tr>
+              <tr>
+                <td>2023-04-22</td>
+                <td>200185</td>
+                <td>Apoorv Mishra</td>
+                <td>BBA</td>
+                <td>Amoxyclav</td>        
+                <td>Throat infection</td>
+                <td>Sore throat, Cough</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </section>
+      
 
     </article>
   </main>
@@ -609,12 +581,14 @@ In addition to medical history management, the portal also offers inventory mana
     - custom js link
   -->
   <script src="./assets/js/script.js"></script>
+  <script src="./assets/js/filter.js"></script>
 
   <!-- 
     - ionicon link
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="./assets/js/script.js"></script>
   <!-- write a code to take the element Enrollment from id and call this api "http://127.0.0.1:5000/students/medrec/id/Enrollment". Append the value taken from Enrollment element here and call the api on submit -->
   <script>
     function fetchData() {
@@ -644,6 +618,18 @@ In addition to medical history management, the portal also offers inventory mana
     // add event listener to the button with id="searchEnrollment" and call the function fetchData
     document.getElementById("searchEnrollment").addEventListener("click", fetchData);
 
+  </script>
+   <script>
+    window.onload = () => {
+      console.log(
+       document.querySelector(
+          "#emp-table > tbody > tr:nth-child(1) > td:nth-child(2)"
+        ).innerHTML
+      );
+    };
+
+    getUniqueValuesFromColumn()
+  
   </script>
 
 </body>

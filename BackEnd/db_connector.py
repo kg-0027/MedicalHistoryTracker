@@ -8,7 +8,7 @@ class ItemDatabase:
         self.mydb = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="password",
+            password="Shu123@123",
             database="medical_records"
         )
         self.cursor = self.mydb.cursor()
@@ -119,6 +119,60 @@ class ItemDatabase:
             med_rec_date["critical"] = row[7]
             med_rec.append(med_rec_date)
         return med_rec
+
+    # create a post api to to update the medical inventory
+
+    def put_med_inventory(self, body):
+        # batch, medicinw, quantity, expiry, create variable for each of them
+        batch = body['batch']
+        medicine = body['medicine']
+        quantity = body['quantity']
+        expiry = body['expiry']
+        # expiry = datetime.strptime(body['expiry'], "%d/%m/%Y")
+        # expiry = expiry.strftime('%Y-%m-%d')
+        print(expiry)
+        today = date.today()
+        # if (expiry < today):
+        #     status = 'EXPIRED'
+        # # medicine, quantity, expiry
+        # elif (body['quantity'] == 0):
+        #     status = 'OUT OF STOCK'
+        # else:
+        #     status = 'AVAILABLE'
+        # insert the data into inventory table
+        query = f"INSERT INTO inventory VALUES ('{batch}', '{medicine}', '{quantity}', '{expiry}')"
+        self.cursor.execute(query)
+        self.mydb.commit()
+
+    # get information from inverntory table of a particular medicine
+    def get_medicine_info(self, medicine):
+        query = f"SELECT * FROM inventory WHERE medicine = '{medicine}'"
+        self.cursor.execute(query)
+        inventory_info = []
+        for row in self.cursor.fetchall():
+            # multiple entries of one medicine will be because of different batch numbers
+            batches = {}
+            batches["batch"] = row[0]
+            batches["medicine"] = row[1]
+            batches["quantity"] = row[2]
+            batches["expiry"] = row[3]
+            inventory_info.append(batches)
+        return inventory_info
+
+# create a function to get all the details of inventory
+    def get_all_inventory(self):
+        query = "SELECT * FROM inventory"
+        self.cursor.execute(query)
+        inventory_info = []
+        for row in self.cursor.fetchall():
+            # multiple entries of one medicine will be because of different batch numbers
+            batches = {}
+            batches["batch"] = row[0]
+            batches["medicine"] = row[1]
+            batches["quantity"] = row[2]
+            batches["expiry"] = row[3]
+            inventory_info.append(batches)
+        return inventory_info
 
 
 # db = ItemDatabase()

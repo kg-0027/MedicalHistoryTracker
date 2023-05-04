@@ -78,6 +78,42 @@ def get_medrec_date():
     medrec = db.get_med_date(date)
     return jsonify(medrec)
 
+# make an api to post medicine inventory data
+
+
+@app.route('/medicine/update', methods=["POST"])
+@cross_origin(origin='*')
+def update_medicine():
+    data_json = request.get_json(force=True)
+    medicine = {
+        'batch': data_json['batch'],
+        'medicine': data_json['medicine'],
+        'quantity': data_json['quantity'],
+        'expiry': data_json['expiry'],
+    }
+    db.put_med_inventory(medicine)
+    return jsonify({"message": "Saved Successfully"})
+
+# make an api to get medicine details from the name of the medicine
+
+
+@app.route('/medicine/getdetails', methods=["POST"])
+@cross_origin(origin='*')
+def get_medicine_details():
+    data_json = request.get_json(force=True)
+    medicine = data_json['medicine']
+    details = db.get_medicine_info(medicine)
+    return jsonify(details)
+
+# make an api to get all inventory details
+
+
+@app.route('/medicine/getalldetails', methods=["GET"])
+@cross_origin(origin='*')
+def get_all_medicine_details():
+    details = db.get_all_inventory()
+    return jsonify(details)
+
 
 if __name__ == "__main__":
     global db

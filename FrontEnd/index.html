@@ -257,7 +257,7 @@
                 
               </tr>
             </thead>
-            <tbody>
+            <tbody id="history">
               <tr>
                 <td>2023-04-01</td>
                 <td>200176</td>
@@ -267,90 +267,73 @@
                 <td>Flu</td>
                 <td>Fever, Headache</td>
               </tr>
-              <tr>
-                <td>2023-04-08</td>
-                <td>200177</td>
-                <td>Shubham Jha</td>
-                <td>MBA</td>
-                <td>Amoxicillin</td>
-                <td>Strep Throat</td>
-                <td>Sore throat, Cough</td>
-              </tr>
-              <tr>
-                <td>2023-04-15</td>
-                <td>200178</td>
-                <td>Khushi Gupta</td>
-                <td>Btech</td>
-                <td>None</td>
-                <td>Gastroenteritis</td>
-                <td>Abdominal pain, Diarrhea</td>
-              </tr>
-              <tr>
-                <td>2023-04-22</td>
-                <td>200179</td>
-                <td>Tanishq Nyati</td>
-                <td>B.Com</td>
-                <td>Insulin</td>
-                <td>Diabetes</td>
-                <td>Blurred vision, Fatigue</td>
-              </tr>
-              <tr>
-                <td>2023-04-22</td>
-                <td>200180</td>
-                <td>Ayushi Verma</td>
-                <td>BBA</td>
-                <td>Amoxyclav</td>
-                <td>Throat infection</td>
-                <td>Sore throat, Cough</td>
-              </tr>
-              <tr>
-                <td>2023-04-22</td>
-                <td>200181</td>
-                <td>Yash yadav</td>
-                <td>Btech</td>
-                <td>Dorano</td>
-                <td>Gastritis</td>
-                <td>Stomach pain, flatulence</td>
-              </tr>
-              <tr>
-                <td>2023-04-22</td>
-                <td>200182</td>
-                <td>Divij Goyal</td>
-                <td>PhD</td>
-                <td>None</td>
-                <td>Stroke</td>
-                <td>Heavy breathing, heart pain</td>
-              </tr>
-              <tr>
-                <td>2023-04-22</td>
-                <td>200183</td>
-                <td>Yashita</td>
-                <td>MBA</td>
-                <td>Amoxyclav</td>
-                <td>Throat infection</td>
-                <td>Sore throat, Cough</td>
-              </tr>
-              <tr>
-                <td>2023-04-22</td>
-                <td>200184</td>
-                <td>Vidhi Hatter</td>
-                <td>Btech</td>
-                <td>Amoxyclav</td>
-                <td>Sore throat, Cough</td>
-                <td>Throat infection</td>
-              </tr>
-              <tr>
-                <td>2023-04-22</td>
-                <td>200185</td>
-                <td>Apoorv Mishra</td>
-                <td>BBA</td>
-                <td>Amoxyclav</td>        
-                <td>Throat infection</td>
-                <td>Sore throat, Cough</td>
-              </tr>
             </tbody>
           </table>
         </div>
+        <script>
+          function updateHistory(){
+          // call the api
+          fetch("http://127.0.0.1:5000/students/medrec/all")
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+              // iterate through the data
+              for (var i = 0; i < data.length; i++) {
+                // create a row
+                var row = document.createElement("tr");
+                // create a cell
+                var cell = document.createElement("td");
+                // add the value of date to the cell
+                cell.innerHTML = data[i].date;
+                // append the cell to the row
+                row.appendChild(cell);
+                // create a cell
+                var cell = document.createElement("td");
+                // add the value of Enrollment to the cell
+                cell.innerHTML = data[i].enrollment;
+                // append the cell to the row
+                row.appendChild(cell);
+                // create a cell
+                var cell = document.createElement("td");
+                // add the value of Name to the cell
+                cell.innerHTML = data[i].name;
+                // append the cell to the row
+                row.appendChild(cell);
+                // create a cell
+                var cell = document.createElement("td");
+                // add the value of Course to the cell
+                cell.innerHTML = data[i].Course;
+                // append the cell to the row
+                row.appendChild(cell);
+                // create a cell
+                var cell = document.createElement("td");
+                // add the value of Medicine to the cell
+                cell.innerHTML = data[i].treatment;
+                // append the cell to the row
+                row.appendChild(cell);
+                // create a cell
+                var cell = document.createElement("td");
+                // add the value of Disease to the cell
+                cell.innerHTML = data[i].disease;
+                // append the cell to the row
+                row.appendChild(cell);
+                // create a cell
+                var cell = document.createElement("td");
+                // add the value of Symptoms to the cell
+                cell.innerHTML = data[i].symptoms;
+                // append the cell to the row
+                row.appendChild(cell);
+                // append the row to the table
+                document.getElementById("history").appendChild(row);
+              }
+              // call the function getUniqueValuesFromColumn
+              getUniqueValuesFromColumn();
+            })
+            .catch(error => console.error(error))
+            
+          }
+          updateHistory();
+        </script>
       
 
     </article>

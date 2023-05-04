@@ -269,7 +269,55 @@ input[type="text"] {
           </div>
           <div class="health-item">
             <span class="label">Treatment:</span>
-            <input type="text" id="treatment" name="treatment" value="">
+            <div id="medicine-given" style="display: flex; flex-direction: column;">
+            <!-- create a div to accomodate two input tags side by side -->
+            <div style="display: flex; justify-content: space-between; width: 50%; margin-bottom: 10px;"> 
+              <input type="text" placeholder="Medicine Name" id="medicine" name="treatment" value="" style="width: 50%; margin-right: 10%;">
+              <input type="text" placeholder="Quantity" id="quantity" name="treatment" value="" style="width: 50%;  margin-right: 10%;">
+            </div>
+            </div>  
+            <!-- create a button to add more inputs -->
+            <button type="button" id="add-medicine" class="btn btn-primary">Add Medicine</button>
+
+            <script>
+              // create a function to add more inputs to the div with id medicine-given. Make it happen through a button click event.
+              document.getElementById("add-medicine").addEventListener("click", function() {
+            //     <div style="display: flex; justify-content: space-between; width: 50%; margin-bottom: 10px;"> 
+            //   <input type="text" placeholder="Medicine Name" id="medicine" name="treatment" value="" style="width: 50%; margin-right: 10%;">
+            //   <input type="text" placeholder="Quantity" id="quantity" name="treatment" value="" style="width: 50%;  margin-right: 10%;">
+            // </div>
+            // create a div like above and append it to the div with id medicine-given
+            const medicineGiven = document.getElementById('medicine-given');
+            const div = document.createElement('div');
+            div.style.display = 'flex';
+            div.style.justifyContent = 'space-between';
+            div.style.width = '50%';
+            div.style.marginBottom = '10px';
+            // create two input tags
+            const input1 = document.createElement('input');
+            input1.type = 'text';
+            input1.placeholder = 'Medicine Name';
+            input1.id = 'medicine';
+            input1.name = 'treatment';
+            input1.value = '';
+            input1.style.width = '50%';
+            input1.style.marginRight = '10%';
+            const input2 = document.createElement('input');
+            input2.type = 'text';
+            input2.placeholder = 'Quantity';
+            input2.id = 'quantity';
+            input2.name = 'treatment';
+            input2.value = '';
+            input2.style.width = '50%';
+            input2.style.marginRight = '10%';
+            // append the inputs to the div
+            div.appendChild(input1);
+            div.appendChild(input2);
+            // append the div to the medicineGiven div
+            medicineGiven.appendChild(div);
+              });
+
+            </script>
           </div>
           <div class="health-item">
             <span class="label">Referred:</span>
@@ -608,7 +656,9 @@ input[type="text"] {
       // get the data from the form
       const symptoms = document.getElementById('symptoms').value;
       const disease = document.getElementById('disease').value;
-      const treatment = document.getElementById('treatment').value;
+      const medicine = document.getElementById('medicine').value;
+      const quantity = document.getElementById('quantity').value;
+      const treatment = medicine + ' X ' + quantity + ";";
       const referred = document.getElementById('referred').value;
       const critical = document.getElementById('critical').value;
       // create a body object
